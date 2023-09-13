@@ -25,7 +25,7 @@ public class Person {
     public String email;
     @Field(name = "mobile_number", order = 2)
     private String phoneNumber;
-    @JsonProperty("sex")
+//    @JsonProperty("sex")
     public Sex sex;
     @DBRef
     private Address address;
