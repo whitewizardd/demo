@@ -5,7 +5,6 @@ import com.example.demo.dtos.request.UpdatePersonRequest;
 import com.example.demo.dtos.response.CreatePersonResponse;
 import com.example.demo.dtos.response.FetchPersonResponse;
 import com.example.demo.dtos.response.UpdatePersonResponse;
-import com.example.demo.exceptions.*;
 import com.example.demo.services.PersonServicesImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
