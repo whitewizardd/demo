@@ -5,8 +5,7 @@ import com.example.demo.dtos.request.UpdatePersonRequest;
 import com.example.demo.dtos.response.CreatePersonResponse;
 import com.example.demo.dtos.response.FetchPersonResponse;
 import com.example.demo.dtos.response.UpdatePersonResponse;
-import com.example.demo.exceptions.ExistingEmailException;
-import com.example.demo.exceptions.FindPersonByEmailException;
+import com.example.demo.exceptions.*;
 import com.example.demo.services.PersonServicesImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,13 +37,5 @@ public class PersonController {
                                                              @RequestBody UpdatePersonRequest updatePersonRequest){
         UpdatePersonResponse response = personServices.updatePerson(user_id, updatePersonRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-    @ExceptionHandler(FindPersonByEmailException.class)
-    public ResponseEntity<String> handleFetchError(FindPersonByEmailException exception){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
-    }
-    @ExceptionHandler(ExistingEmailException.class)
-    public ResponseEntity<String> handleExistingEmailException(ExistingEmailException exception){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 }

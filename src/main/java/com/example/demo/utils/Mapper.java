@@ -5,9 +5,11 @@ import com.example.demo.data.models.Person;
 import com.example.demo.dtos.request.CreatePersonRequest;
 import com.example.demo.dtos.request.UpdatePersonRequest;
 import com.example.demo.dtos.response.FetchPersonResponse;
+import static com.example.demo.utils.HandleException.checkInput;
 
 public class Mapper {
     public static Person map(CreatePersonRequest userDto, Address savedAddress){
+        checkInput(userDto);
         return Person.builder()
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
@@ -40,8 +42,5 @@ public class Mapper {
         foundAddress.setHouseNumber(address.getHouseNumber());
         foundAddress.setStreetName(address.getStreetName());
         return foundAddress;
-    }
-    private void checkInput(CreatePersonRequest request){
-
     }
 }
