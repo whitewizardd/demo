@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.exceptions;
 
 import com.example.demo.exceptions.*;
 import jakarta.validation.ConstraintViolationException;

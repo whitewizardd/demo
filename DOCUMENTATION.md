@@ -1,65 +1,122 @@
-                                                Person Management System
-The Person Management System is a Java-based RESTful web service that provides functionalities 
-for managing individual records with their personal information and addresses.
+    `                                                   Overview
+This project is a Java Spring Boot application that provides API endpoints for managing Person records.
+It includes features for Creating, Updating, Retrieving and Deleting the Person information.
+This documentation provides details about the API endpoints, standard request and response formats, sample usage, known limitations,
+and setup instructions.
 
-                                                    Table of Contents
-* Description
-* Technologies Used
-* Project Structure
-* API Endpoints
-* Getting Started  
-* Contributing
+                                                     Table of Contents
+1. Endpoints and Request/Response Formats
+2. Sample API Usage
+3. Known Limitations and Assumptions 
+4. Local Setup and Deployment Instructions 
+5. Endpoints and Request/Response Formats 
 
-                                                        Description
-    The Person Management System is designed to handle basic CRUD (Create, Read, Update, Delete) operations for individuals (persons).
-    It allows you to:
-    Create: Add new person records with details such as Email, FirstName, LastName, PhoneNumber, Address and Sex.
-    Retrieve: Fetches person records by their Email, Name or PhoneNumber.
-    Update: Modify existing Person records.
-    Delete: Remove person records from the system.
-    The system ensures data integrity and provides error handling for various scenarios making it a reliable solution for managing personal information.
+                                                    Add Person: POST /api
+# Request Format:
+    {
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "sex": "sex",
+        "houseNumber": "50",
+        "streetName": "jokotagba",
+        "state": "state",
+        "phoneNumber": "2349061111199"
+    }
+# Response Format:
+    {
+        "id": "id",
+        "email": "abc@mail.com",
+        "message": "Saved Successfully...",
+        "status": true
+    }
+                                                Get Person by email: GET /api/{user_id}
+# Request Format:
+    "url"/api/{email}
+# Response Format:
+    {
+        "id": "id",
+       "firstName": "firstName",
+        "lastName": "lastName",
+        "email" : "abc@mail.com",
+        "sex": "sex",
+        "phoneNumber": "2349061111199",
+        "address":{
+            "id": "id",
+            "houseNumber": "50",
+            "streetName": "jokotagba",
+            "state": "state",
+        }
+    }
+                                              Get Persons by Name: GET /api/name/{name}
+# Request Format:
+    "url"/api/person/{name}
+# Response Format:
+    {
 
-                                                          Technologies Used
-    The project is built using the following technologies and frameworks:
-    Java: The core programming language. 
-    Spring Boot: A popular framework for building Java applications.
-    Spring Starter Data Mongodb: Simplifies database access using Java Persistence API.
-    Spring Boot Validation: Provides validation for inputs.
-    Lombok: Reduces boilerplate code by generating common methods.
-    Maven: A build tool for managing dependencies and building the project.
-  
-                                                          Project Structure
-    The project is built and organized into several packages using one of the most common architectural build, Layered Architecture:
-    com/example/demo/controllers: Contains the REST API controllers.
-    com/example/demo/data/models: Defines the data models for Person and Address.
-    com/example/demo/services: Contains the business logic and service implementations. 
-    resources: Contains configuration files, including application.properties.
-    pom.xml: Maven project configuration.
+    }
+                                         Get Person by Phone Number: GET /api/phone/{user_id}
+# Request Format:
+     "url"/api/phone/{phone}
+# Response Format:
+    [
+        {
+           "firstName": "firstName",
+            "lastName": "lastName",
+            "email" : "abc@mail.com",
+            "sex": "sex",
+            "phoneNumber": "2349061111199",
+            "address":{
+                "id": "id",
+                "houseNumber": "50",
+                "streetName": "jokotagba",
+                "state": "state",
+            }
+        },
+        {
+           "firstName": "firstName",
+            "lastName": "lastName",
+            "email" : "abc@mail.com",
+            "sex": "sex",
+            "phoneNumber": "2349061111199",
+            "address":{
+                "id": "id",
+                "houseNumber": "50",
+                "streetName": "jokotagba",
+                "state": "state",
+            }
+        }
+    ]
+                                               Update Person by ID: PUT /api/{user_id}
+# Request Format:
+    {
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "sex": "sex"
+        "address":{
+                "id": "id",
+                "houseNumber": "50",
+                "streetName": "jokotagba",
+                "state": "state",
+        }
+    }
+# Response Format:
+    {
+        "id": "id",
+        "status": true,
+        "message":{email} "Successfully updated..."
+    }
+                                              Delete Person by email: DELETE /api/{user_id}
+# Request Format:
+    "url"/api/{email}
+# Response Format:
+        {email} Successfully deleted
 
-                                                          API Endpoints
-    The REST API exposes the following endpoints:
-    POST /api: Create a new person record.
-    GET /api/{user_id}: Retrieve a person by their email.
-    GET /api/name/{user_id}: Retrieve a list of persons by their name.
-    GET /api/phone/{user_id}: Retrieve a person by their phone number.
-    PUT /api/{user_id}: Update an existing person record.
-    DELETE /api/{user_id}: Delete a person by their email registered.
-    N.B:  Each endpoint serves a specific purpose in managing person data within the system.
-                                        
-                                                          Getting Started
-    To run this project locally, follow these steps listed below:
+                                                    Known Limitations and Assumptions 
+This API assumes that person information are unique based on their email addresses and phone number. 
 
-    * Clone the repository to your local machine.
-    * Ensure you have Java 17, you may also decide to upgrade the project version too.
-    * Build and run the project using Maven:
-    # mvn spring-boot:run
-    The API will be accessible at http://localhost:{port_number}
+                                                            Local Setup
+Check the README file...
+                                            
+                                                       Deployment Instructions
 
-                                                             Contributing
-    If you'd like to contribute to this project, please follow these guidelines:
-    * Fork the repository.
-    * Create a new branch for your feature.
-    * Make your changes and test thoroughly.
-    * Create a pull request with a clear description of your changes.
-    * Be open to feedback and code reviews.
-    Thank you!
+[//]: # (To set up and deploy the hngTask-2 API on a server, follow these steps:)
