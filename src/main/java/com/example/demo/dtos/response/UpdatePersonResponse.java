@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter@Getter
 @Builder
 public class UpdatePersonResponse {
+    private String id;
     private String message;
 }

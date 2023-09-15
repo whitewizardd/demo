@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter@Getter
 @Builder
 public class FetchPersonResponse {
+    private String id;
     private String firstName;
     private String lastName;
     private String email;

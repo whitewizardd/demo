@@ -10,8 +10,14 @@ import com.example.demo.dtos.response.FetchPersonResponse;
 import com.example.demo.dtos.response.UpdatePersonResponse;
 import com.example.demo.exceptions.ExistingEmailException;
 import com.example.demo.exceptions.FindPersonByEmailException;
+import com.example.demo.exceptions.PhoneNumberExistException;
+import com.example.demo.exceptions.UserNotExistException;
+import com.example.demo.utils.Mapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+
 import static com.example.demo.utils.Mapper.map;
 
 @Service
@@ -24,8 +30,7 @@ public class PersonServicesImpl implements PersonServices{
     }
     @Override
     public CreatePersonResponse createPerson(CreatePersonRequest userDto) {
-        Optional<Person> checkExistingEmail = personRepository.findByEmail(userDto.getEmail().toLowerCase());
-        if (checkExistingEmail.isPresent()) throw new ExistingEmailException("User with this email already exist");
+        check(userDto);
         Address address = addressService.createAddress(userDto);
         Person person = map(userDto, address);
         Person savedPerson = personRepository.save(person);
@@ -46,6 +51,7 @@ public class PersonServicesImpl implements PersonServices{
         Person updatedPerson = map(person, updatePersonRequest, address);
         Person savedPerson = personRepository.save(updatedPerson);
         return UpdatePersonResponse.builder()
+                .id(savedPerson.getId())
                 .message(savedPerson.getEmail() + " Successfully updated...").build();
     }
     @Override
@@ -55,9 +61,35 @@ public class PersonServicesImpl implements PersonServices{
         personRepository.delete(person);
         return person.getEmail() + " Successfully deleted";
     }
+    @Override
+    public FetchPersonResponse getPersonByPhoneNumber(String phoneNumber) {
+        String findPhone = map(phoneNumber);
+        Optional<Person> foundPerson = personRepository.findByPhoneNumber(findPhone);
+        if (foundPerson.isEmpty()){
+            throw new PhoneNumberExistException("User with this phone number does not exist");
+        }
+        return map(foundPerson.get());
+    }
+    @Override
+    public List<Person> getAllPersonsByLastName(String lastName) {
+        List<Person> allPerson = personRepository.findByLastNameIgnoreCase(lastName);
+        if (allPerson.isEmpty()) throw new UserNotExistException("User(s) with the name "+ lastName + " does not exist");
+        return allPerson;
+    }
+    @Override
+    public List<FetchPersonResponse> getAllPersonsByFirstName(String firstName) {
+        Optional<List<Person>> allPerson = personRepository.findByFirstName(firstName);
+        return null;
+    }
     private Person findPersonViaEmail(String email){
         Optional<Person> person = personRepository.findByEmail(email);
         if (person.isEmpty()) throw new FindPersonByEmailException("User with " + email+ " does not exist");
         return person.get();
+    }
+    private void check(CreatePersonRequest userDto){
+        Optional<Person> checkExistingEmail = personRepository.findByEmail(userDto.getEmail().toLowerCase());
+        Optional<Person> checkPhoneNumber = personRepository.findByPhoneNumber(map(userDto.getPhoneNumber()));
+        if (checkPhoneNumber.isPresent()) throw new PhoneNumberExistException("User with this mobile number already exist");
+        if (checkExistingEmail.isPresent()) throw new ExistingEmailException("User with this email already exist");
     }
 }
