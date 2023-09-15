@@ -10,4 +10,5 @@ public class CreatePersonResponse {
     private String id;
     private String email;
     private String message;
+    private boolean status;
 }

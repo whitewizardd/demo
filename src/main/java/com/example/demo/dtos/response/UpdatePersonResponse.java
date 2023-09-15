@@ -8,5 +8,6 @@ import lombok.Setter;
 @Builder
 public class UpdatePersonResponse {
     private String id;
+    private boolean status;
     private String message;
 }

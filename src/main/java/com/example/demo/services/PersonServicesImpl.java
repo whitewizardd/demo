@@ -37,6 +37,7 @@ public class PersonServicesImpl implements PersonServices{
         return CreatePersonResponse.builder()
                 .id(savedPerson.getId())
                 .email(savedPerson.getEmail())
+                .status(true)
                 .message("Saved Successfully...").build();
     }
     @Override
@@ -52,6 +53,7 @@ public class PersonServicesImpl implements PersonServices{
         Person savedPerson = personRepository.save(updatedPerson);
         return UpdatePersonResponse.builder()
                 .id(savedPerson.getId())
+                .status(true)
                 .message(savedPerson.getEmail() + " Successfully updated...").build();
     }
     @Override
