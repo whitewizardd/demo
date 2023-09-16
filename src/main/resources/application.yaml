@@ -1,0 +1,14 @@
+#spring:
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: your_database_name
+#      username: your_username
+#      password: your_password
+
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
