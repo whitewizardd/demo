@@ -14,41 +14,46 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@RequestMapping(value = "/api")
 @RestController
-@RequestMapping(value = "/api")
 public class PersonController {
     private final PersonServicesImpl personServices;
-    public PersonController(PersonServicesImpl personServices){
+    public PersonController(PersonServicesImpl personServices) {
         this.personServices = personServices;
     }
-    @PostMapping("")
-    public ResponseEntity<CreatePersonResponse> createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest){
+    @PostMapping("/api")
+    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody @Valid CreatePersonRequest createPersonRequest){
         CreatePersonResponse response = personServices.createPerson(createPersonRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @RequestMapping(value = "/{user_id}", method = RequestMethod.GET)
+    @GetMapping("api/{user_id}")
     public ResponseEntity<FetchPersonResponse> getPersonByEmail(@PathVariable String user_id){
         FetchPersonResponse fetchPersonResponse = personServices.getPersonByMail(user_id);
-        return ResponseEntity.status(HttpStatus.OK).body(fetchPersonResponse);
+//        return ResponseEntity.status(HttpStatus.OK).body(fetchPersonResponse);
+        return new ResponseEntity<>(fetchPersonResponse, HttpStatus.OK);
     }
-    @RequestMapping(value = "/{user_id}", method = RequestMethod.DELETE)
+    @DeleteMapping("api/{user_id}")
     public ResponseEntity<String> deletePersonById(@PathVariable String user_id){
         return new ResponseEntity<>(personServices.deleteUser(user_id), HttpStatus.OK);
     }
-    @RequestMapping(value = "/{user_id}", method = RequestMethod.PUT)
+    @PutMapping("api/{user_id}")
     public ResponseEntity<UpdatePersonResponse> updatePerson(@PathVariable String user_id, @Valid
                                                              @RequestBody UpdatePersonRequest updatePersonRequest){
         UpdatePersonResponse response = personServices.updatePerson(user_id, updatePersonRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @RequestMapping(value = "/phone/{user_id}", method = RequestMethod.GET)
+    @GetMapping("api/phone/{user_id}")
     public ResponseEntity<FetchPersonResponse> getPersonByPhone(@PathVariable String user_id){
         FetchPersonResponse response = personServices.getPersonByPhoneNumber(user_id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @RequestMapping(value = "/name/{user_id}", method = RequestMethod.GET)
+    @GetMapping("api/name/{user_id}")
     public ResponseEntity<List<Person>> getPersonByName(@PathVariable String user_id){
         List<Person> people = personServices.getAllPersonsByLastName(user_id);
-        return ResponseEntity.status(HttpStatus.OK).body(people);
+//        return ResponseEntity.status(HttpStatus.OK).body(people);
+        return new ResponseEntity<>(people, HttpStatus.OK);
     }
 }
