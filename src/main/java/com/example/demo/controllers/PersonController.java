@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api")
 public class PersonController {
     private final PersonServicesImpl personServices;
     public PersonController(PersonServicesImpl personServices){
         this.personServices = personServices;
     }
-    @RequestMapping(method = RequestMethod.POST)
+    @GetMapping("")
     public ResponseEntity<CreatePersonResponse> createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest){
         CreatePersonResponse response = personServices.createPerson(createPersonRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @RequestMapping(value = "/{user_id}", method = RequestMethod.GET)
     public ResponseEntity<FetchPersonResponse> getPersonByEmail(@PathVariable String user_id){
@@ -39,7 +39,7 @@ public class PersonController {
     public ResponseEntity<UpdatePersonResponse> updatePerson(@PathVariable String user_id, @Valid
                                                              @RequestBody UpdatePersonRequest updatePersonRequest){
         UpdatePersonResponse response = personServices.updatePerson(user_id, updatePersonRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @RequestMapping(value = "/phone/{user_id}", method = RequestMethod.GET)
     public ResponseEntity<FetchPersonResponse> getPersonByPhone(@PathVariable String user_id){
