@@ -21,7 +21,7 @@ public class PersonController {
     public PersonController(PersonServicesImpl personServices){
         this.personServices = personServices;
     }
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity<CreatePersonResponse> createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest){
         CreatePersonResponse response = personServices.createPerson(createPersonRequest);
         return ResponseEntity.status(HttpStatus.OK).body(response);
