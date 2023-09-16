@@ -1,14 +1,14 @@
-#spring:
-#  data:
-#    mongodb:
-#      host: localhost
-#      port: 27017
-#      database: your_database_name
-#      username: your_username
-#      password: your_password
-
-
 spring:
   data:
     mongodb:
-      uri: ${MONGO_URL}
+      host: ${MONGOHOST}
+      port: ${MONGOPORT}
+      database: PersonManagementDatabase
+      username: ${MONGOUSER}
+      password: ${MONGOPASSWORD}
+
+
+#spring:
+#  data:
+#    mongodb:
+#      uri: ${MONGO_URL}
