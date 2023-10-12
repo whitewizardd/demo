@@ -5,10 +5,6 @@ import com.example.demo.data.models.Person;
 import com.example.demo.dtos.request.CreatePersonRequest;
 import com.example.demo.dtos.request.UpdatePersonRequest;
 import com.example.demo.dtos.response.FetchPersonResponse;
-import com.example.demo.exceptions.ExistingEmailException;
-import com.example.demo.exceptions.PhoneNumberExistException;
-
-import java.util.Optional;
 
 public class Mapper {
     public static Person map(CreatePersonRequest userDto, Address savedAddress){

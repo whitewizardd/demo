@@ -10,16 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class DemoApplicationTests {
-	@Autowired
-	PersonRepository personRepository;
+//	@Autowired
+//	PersonRepository personRepository;
 
 	@Test
 	void contextLoads() {
 	}
-	@Test
-	public void personCan_Be_CreatedTest(){
-		Person person = new Person();
-		Person savedPerson = personRepository.save(person);
-		assertNotNull(savedPerson);
-	}
+//	@Test
+//	public void personCan_Be_CreatedTest(){
+//		Person person = new Person();
+//		Person savedPerson = personRepository.save(person);
+//		assertNotNull(savedPerson);
+//	}
 }

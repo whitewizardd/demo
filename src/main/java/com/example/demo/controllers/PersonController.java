@@ -7,7 +7,7 @@ import com.example.demo.dtos.response.CreatePersonResponse;
 import com.example.demo.dtos.response.FetchPersonResponse;
 import com.example.demo.dtos.response.UpdatePersonResponse;
 import com.example.demo.services.PersonServicesImpl;
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class PersonController {
         this.personServices = personServices;
     }
     @PostMapping("/api")
-    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody @Valid CreatePersonRequest createPersonRequest){
+    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody CreatePersonRequest createPersonRequest){
         CreatePersonResponse response = personServices.createPerson(createPersonRequest);
 //        return ResponseEntity.status(HttpStatus.OK).body(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -38,7 +38,7 @@ public class PersonController {
         return new ResponseEntity<>(personServices.deleteUser(user_id), HttpStatus.OK);
     }
     @PutMapping("api/{user_id}")
-    public ResponseEntity<UpdatePersonResponse> updatePerson(@PathVariable String user_id, @Valid
+    public ResponseEntity<UpdatePersonResponse> updatePerson(@PathVariable String user_id,
                                                              @RequestBody UpdatePersonRequest updatePersonRequest){
         UpdatePersonResponse response = personServices.updatePerson(user_id, updatePersonRequest);
 //        return ResponseEntity.status(HttpStatus.OK).body(response);
